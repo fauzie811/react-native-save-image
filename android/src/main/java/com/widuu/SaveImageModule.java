@@ -61,7 +61,7 @@ public class SaveImageModule extends ReactContextBaseJavaModule{
         if( suffix.indexOf("?") != -1 ){
             suffix = suffix.substring(0, suffix.indexOf("?"));
         }
-        mSaveDialog = ProgressDialog.show(mContext,"保存图片","图片正在保存中...",true);
+        mSaveDialog = ProgressDialog.show(mContext,"Please wait","Saving image...",true);
         new Thread(saveFileRunnable).start();
     }
 
@@ -89,13 +89,13 @@ public class SaveImageModule extends ReactContextBaseJavaModule{
             try{
                 mBitmap = BitmapFactory.decodeStream(getImageStream(filePath));
                 if( mBitmap == null ){
-                    saveMessage = "网络传输错误";
+                    saveMessage = "Network error";
                 }else{
                     saveFile(mBitmap);
-                    saveMessage = "图片保存成功";
+                    saveMessage = "Image saved";
                 }
             }catch (IOException e) {
-                saveMessage = "图片保存失败！";
+                saveMessage = "Save failed";
                 e.printStackTrace();
             }catch (Exception e){
                 e.printStackTrace();
@@ -158,7 +158,7 @@ public class SaveImageModule extends ReactContextBaseJavaModule{
             public void onScanCompleted(String path, Uri uri)
             {
                 if( uri == null ){
-                    saveMessage = "添加图片错误";
+                    saveMessage = "Media scanner failed";
                 }
             }
         });
